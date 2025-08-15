@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RequestIQ - Trafficking</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      max-width: 1200px;
+      width: 100%;
+    }
+    .container {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 36px;
+      flex: 1 1 600px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    }
+    .sidebar {
+      flex: 1 1 300px;
+      background: #ffffff;
+      padding: 20px 18px;
+      border-radius: 14px;
+      border: 1px solid #e0e6ed;
+      font-size: 13.5px;
+      color: #444;
+      line-height: 1.5;
+    }
+    .sidebar h3 {
+      margin-top: 0;
+      font-size: 15px;
+      color: #003366;
+    }
+    .sidebar ol {
+      padding-left: 18px;
+    }
+    .sidebar ol li {
+      margin-bottom: 10px;
+    }
+    .header {
+      text-align: center;
+      font-size: 24px;
+      font-weight: 600;
+      color: #003366;
+      margin-bottom: 24px;
+    }
+    .form-group {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f9fbfc;
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+      border: 1px solid #dde3ea;
+    }
+    .form-group label {
+      flex: 1;
+      font-size: 15px;
+      color: #333;
+    }
+    .form-group input {
+      width: 64px;
+      padding: 8px;
+      font-size: 15px;
+      text-align: center;
+      border: 1px solid #ccd6e0;
+      border-radius: 6px;
+      background-color: #fff;
+    }
+    button {
+      display: block;
+      width: 100%;
+      background-color: #0057FF;
+      color: white;
+      font-size: 16px;
+      padding: 14px 0;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+    button:hover {
+      background-color: #0046cc;
+    }
+    #result {
+      text-align: center;
+      font-size: 16px;
+      font-weight: 500;
+      margin-top: 20px;
+    }
+    #footer-note {
+      margin-top: 26px;
+      text-align: center;
+      font-size: 14px;
+    }
+    #footer-note a {
+      color: #0057FF;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+      <div class="header">RequestIQ - Trafficking</div>
+
+      <!-- Input form -->
+      <div id="form"></div>
+
+      <button onclick="calculate()">Calculate Complexity</button>
+      <button onclick="downloadPDF()">Download PDF</button>
+      <p id="result"></p>
+
+      <div id="footer-note">
+        ✅ Ready to proceed? <a href="https://genome.klick.com/task/template/create-template-form.html?task=2249335" target="_blank">Initiate trafficking task here</a>.
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <h3>Please Note:</h3>
+      <ol>
+        <li>“Sets” refer to distinct versions tied to a job code. If you’re running banners under the same job code but with two different creative versions, each version will be treated as a separate set.</li>
+        <li>Only one static backup set is permitted per campaign.</li>
+        <li>The outlined scope assumes that all assets have already undergone QA and have received Sci-Reg approval. Our involvement will be limited to a compatibility check within Campaign Manager 360. If any functional issues are identified during the creative verification review, the scope of work will increase.</li>
+        <li>For 1x1 placements, please confirm with the vendor what deliverables are required from Ad Ops. If the placement compatibility type is selected incorrectly in Prisma, additional scope and effort may be needed to resolve the issue.</li>
+      </ol>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      "New animated banner sets",
+      "New static banner sets",
+      "New video sets",
+      "New audio sets",
+      "New DCO banner sets",
+      "Number of new placements",
+      "New 1x1 site-served placements",
+      "Number of existing placements",
+      "Using existing assets with new rotations? If yes, how many sets of new rotations?",
+      "Using existing assets and existing rotations? If yes, how many sets of existing rotations?",
+      "Updating URLs of existing assets? If yes, how many sets of assets?",
+      "Number of vendors involved in this trafficking request"
+    ];
+
+    const ranges = [
+      [ [1,3,2.5], [4,6,5], [7,8,7.5], [9,Infinity,10] ],
+      [ [1,5,2.5], [6,10,5], [11,15,7.5], [16,Infinity,10] ],
+      [ [1,5,1.25], [6,10,2.5], [11,15,3.75], [16,Infinity,5] ],
+      [ [1,5,1.25], [6,10,2.5], [11,15,3.75], [16,Infinity,5] ],
+      [ [0,0,0], [1,3,0], [4,5,5], [6,Infinity,10] ],
+      [ [1,100,2.5], [101,200,5], [201,300,7.5], [301,Infinity,10] ],
+      [ [1,10,2.5], [11,20,5], [21,30,7.5], [31,Infinity,10] ],
+      [ [1,150,2.5], [151,300,5], [301,450,7.5], [451,Infinity,10] ],
+      [ [1,3,2.5], [4,6,5], [7,9,7.5], [10,Infinity,10] ],
+      [ [1,3,1.25], [4,6,2.5], [7,9,3.75], [10,Infinity,5] ],
+      [ [1,5,1.25], [6,10,2.5], [11,15,3.75], [16,Infinity,5] ],
+      [ [1,5,2.5], [6,10,5], [11,15,7.5], [16,Infinity,10] ]
+    ];
+
+    const form = document.getElementById("form");
+    questions.forEach((q, i) => {
+      const id = "q" + (i+1);
+      const group = document.createElement("div");
+      group.className = "form-group";
+      group.innerHTML = `<label for="${id}">${q}</label><input id="${id}" type="number" value="0" />`;
+      form.appendChild(group);
+    });
+
+    function calculate() {
+      let total = 0;
+      for (let i = 1; i <= 12; i++) {
+        const val = parseInt(document.getElementById("q" + i).value) || 0;
+        const rule = ranges[i-1].find(r => val >= r[0] && val <= r[1]);
+        if (rule) total += rule[2];
+      }
+
+      const complexity =
+        total <= 30 ? "Small" :
+        total <= 60 ? "Medium" :
+        total <= 90 ? "Large" : "Complex";
+
+      document.getElementById("result").innerText =
+        `Total Score: ${total} — This is a ${complexity} trafficking task.`;
+    }
+
+    async function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.setFontSize(14);
+      doc.text("RequestIQ - Trafficking Summary", 10, 20);
+      let y = 30;
+      let total = 0;
+
+      questions.forEach((q, i) => {
+        const val = parseInt(document.getElementById("q" + (i+1)).value) || 0;
+        doc.setFontSize(11);
+        doc.text(`${i+1}. ${q}: ${val}`, 10, y);
+        y += 8;
+
+        const rule = ranges[i].find(r => val >= r[0] && val <= r[1]);
+        if (rule) total += rule[2];
+      });
+
+      const complexity =
+        total <= 30 ? "Small" :
+        total <= 60 ? "Medium" :
+        total <= 90 ? "Large" : "Complex";
+
+      doc.setFontSize(12);
+      doc.text(`Total Score: ${total}`, 10, y);
+      doc.text(`Complexity Level: ${complexity}`, 10, y + 10);
+
+      y += 30;
+      doc.setFontSize(10);
+      doc.setTextColor(0, 87, 255);
+      doc.textWithLink("✅ Ready to proceed? Initiate trafficking task here.", 10, y, {
+        url: "https://genome.klick.com/task/template/create-template-form.html?task=2249335"
+      });
+
+      doc.save("requestiq-trafficking-summary.pdf");
+    }
+  </script>
+</body>
+</html>
