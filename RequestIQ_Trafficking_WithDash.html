@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RequestIQ - Trafficking</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .container {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 36px;
+      flex: 1 1 600px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    }
+
+    .sidebar {
+      flex: 1 1 300px;
+      background: #ffffff;
+      padding: 20px 18px;
+      border-radius: 14px;
+      border: 1px solid #e0e6ed;
+      font-size: 13.5px;
+      color: #444;
+      line-height: 1.5;
+    }
+
+    .sidebar h3 {
+      margin-top: 0;
+      font-size: 15px;
+      color: #003366;
+    }
+
+    .sidebar ol {
+      padding-left: 18px;
+    }
+
+    .sidebar ol li {
+      margin-bottom: 10px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      justify-content: center;
+    }
+
+    .header img {
+      height: 42px;
+    }
+
+    .header h1 {
+      font-size: 24px;
+      font-weight: 600;
+      color: #003366;
+      margin: 0;
+    }
+
+    .form-group {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f9fbfc;
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+      border: 1px solid #dde3ea;
+    }
+
+    .form-group label {
+      flex: 1;
+      font-size: 15px;
+      color: #333;
+    }
+
+    .form-group input {
+      width: 64px;
+      padding: 8px;
+      font-size: 15px;
+      text-align: center;
+      border: 1px solid #ccd6e0;
+      border-radius: 6px;
+      background-color: #fff;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      background-color: #0057FF;
+      color: white;
+      font-size: 16px;
+      padding: 14px 0;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+
+    button:hover {
+      background-color: #0046cc;
+    }
+
+    #result {
+      text-align: center;
+      font-size: 16px;
+      font-weight: 500;
+      margin-top: 20px;
+    }
+
+    #footer-note {
+      margin-top: 26px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    #footer-note a {
+      color: #0057FF;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+      <div class="header">
+        
+        <h1>RequestIQ - Trafficking</h1>
+      </div>
+
+<div class="form-group"><label for="q1">How many sets of new animated banners are we trafficking?</label><input id="q1" type="number" value="0"></div><div class="form-group"><label for="q2">How many sets of new static banners are we trafficking?</label><input id="q2" type="number" value="0"></div><div class="form-group"><label for="q3">How many sets of new videos are we trafficking?</label><input id="q3" type="number" value="0"></div><div class="form-group"><label for="q4">How many sets of audios are we trafficking?</label><input id="q4" type="number" value="0"></div><div class="form-group"><label for="q5">How many sets of DCO banners are we trafficking?</label><input id="q5" type="number" value="0"></div><div class="form-group"><label for="q6">How many 1x1 site served placements are we trafficking?</label><input id="q6" type="number" value="0"></div><div class="form-group"><label for="q7">How many new placements are we trafficking?</label><input id="q7" type="number" value="0"></div><div class="form-group"><label for="q8">How many existing placements are we trafficking?</label><input id="q8" type="number" value="0"></div><div class="form-group"><label for="q9">Are we using existing assets and creating new rotations? If so, how many sets of new rotations?</label><input id="q9" type="number" value="0"></div><div class="form-group"><label for="q10">Are we using existing assets and rotations? If so, how many sets of existing rotations?</label><input id="q10" type="number" value="0"></div><div class="form-group"><label for="q11">Are we updating URLs of existing assets? If so, how many sets of assets?</label><input id="q11" type="number" value="0"></div><div class="form-group"><label for="q12">How many vendors are we trafficking in this task?</label><input id="q12" type="number" value="0"></div>
+      <button onclick="calculate()">Calculate Complexity</button>
+      <button onclick="downloadPDF()">Download PDF</button>
+      <p id="result"></p>
+
+      <div id="footer-note">
+        ✅ Ready to proceed? <a href="https://genome.klick.com/task/template/create-template-form.html?task=2249335" target="_blank">Initiate trafficking task here</a>.
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <h3>Please Note:</h3>
+      <ol>
+        <li>“Sets” refer to distinct versions tied to a job code. If you’re running banners under the same job code but with two different creative versions, each version will be treated as a separate set.</li>
+        <li>Only one static backup set is permitted per campaign.</li>
+        <li>The outlined scope assumes that all assets have already undergone QA and have received Sci-Reg approval. Our involvement will be limited to a compatibility check within Campaign Manager 360. If any functional issues are identified during the creative verification review, the scope of work will increase.</li>
+        <li>For 1x1 placements, please confirm with the vendor what deliverables are required from Ad Ops. If the placement compatibility type is selected incorrectly in Prisma, additional scope and effort may be needed to resolve the issue.</li>
+      </ol>
+    </div>
+  </div>
+
+  <script>
+    let resultData = [];
+
+    function calculate() {
+      let score = 0;
+      resultData = [];
+      for (let i = 1; i <= 12; i++) {
+        const input = document.getElementById("q" + i);
+        const val = parseInt(input.value) || 0;
+        const label = input.previousElementSibling.innerText;
+        score += val;
+        resultData.push({ question: label, value: val });
+      }
+      const complexity = score <= 30 ? "Small" : score <= 60 ? "Medium" : score <= 90 ? "Large" : "Complex";
+      document.getElementById("result").innerText = `Total Score: ${score} — This is a ${complexity} trafficking task.`;
+      resultData.push({ score: score, complexity: complexity });
+    }
+
+    async function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.setFontSize(14);
+      doc.text("RequestIQ - Trafficking - Summary", 10, 20);
+      let y = 30;
+
+      resultData.forEach((item, index) => {
+        if (item.question) {
+          doc.setFontSize(11);
+          doc.text(`${index + 1}. ${item.question}: ${item.value}`, 10, y);
+          y += 8;
+        }
+      });
+
+      const final = resultData[resultData.length - 1];
+      y += 10;
+      doc.setFontSize(12);
+      doc.text("Total Score: " + final.score, 10, y);
+      doc.text("Complexity Level: " + final.complexity, 10, y + 10);
+
+      y += 25;
+      doc.setFontSize(10);
+      doc.setTextColor(0, 87, 255);
+      doc.textWithLink('✅ Ready to proceed? Initiate trafficking task here.', 10, y, {
+        url: "https://genome.klick.com/task/template/create-template-form.html?task=2249335"
+      });
+
+      doc.save("requestiq-trafficking-summary.pdf");
+    }
+  </script>
+</body>
+</html>
